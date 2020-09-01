@@ -1,5 +1,4 @@
-# weather-app
-## Back end
+# weather-app back end
 Build with nodejs, express, Typescript and OpenWeatherApi
 To start:
 
@@ -13,4 +12,3 @@ If you see tsc error, run this command to install typescript globally:
 ### APi end point
 GET: `api/weather`: take `city` and `key`as params 
 
-## Front end
