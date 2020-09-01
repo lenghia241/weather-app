@@ -1,10 +1,16 @@
 # weather-app
-
-`npm npm install typescript -g`
+## Back end
+Build with nodejs, express, Typescript and OpenWeatherApi
+To start:
 
 `npm install`
 
 `npm run dev`
 
-# TRy with postman or anythinghttp://localhost:8000/api/weather?city=helsinki&key=cb348323e75deb325f67a764534c84ab
-`http://localhost:8000/api/weather?city=CITY_NAME&key=KEY`
+If you see tsc error, run this command to install typescript globally:
+`npm npm install typescript -g`
+
+### APi end point
+GET: `api/weather`: take `city` and `key`as params 
+
+## Front end
