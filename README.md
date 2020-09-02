@@ -5,6 +5,7 @@
 
 ## Back end
 Build with nodejs, express, Typescript and OpenWeatherApi
+
 To start:
 
 `npm install`
@@ -22,7 +23,8 @@ GET: `api/multiweather`: take `citiesId` and `key`as params
 <br/>
 
 ## Front end
-Build with React, Typescript, styled-component, 
+Build with React, Typescript, styled-component, Deploy with Heroku
+
 To start:
 
 `npm install`
