@@ -1,6 +1,6 @@
 # weather-app
 
-### [https://fathomless-savannah-87472.herokuapp.com/](Live demo)
+### [Live demo](https://fathomless-savannah-87472.herokuapp.com/)
 
 
 ## Back end
