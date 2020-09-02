@@ -4,21 +4,13 @@ import DefaultContext from '../../common/DefaultContext';
 import Card from '../../elements/Card';
 import Icon from '../../elements/Icon';
 import styled from 'styled-components';
+import { WeatherContent } from '../../common/Interface';
 
 const ContentWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 `;
-
-interface WeatherContent {
-	city: {
-		id: number;
-		name: string;
-	};
-	weather: any[];
-	temp: number;
-}
 
 const WeatherList: FC = () => {
 	const { weatherDetail } = useContext(DefaultContext);

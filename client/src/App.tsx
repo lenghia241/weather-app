@@ -8,6 +8,7 @@ import theme from './themes/theme';
 import DefaultContext from './common/DefaultContext';
 import styled from 'styled-components';
 import Header from './elements/Header';
+import { WeatherProps } from './common/Interface';
 
 const WeatherList = React.lazy(() => import('./components/WeatherList'));
 
@@ -22,7 +23,7 @@ const MainWrapper = styled.div`
 `;
 
 const App: FC = () => {
-	const [weatherDetail, setWeatherDetail] = useState([]);
+	const [weatherDetail, setWeatherDetail] = useState([] as Array<WeatherProps>);
 	const [errorMes, setErrorMes] = useState(false);
 
 	const key = process.env.REACT_APP_API_KEY;
@@ -53,7 +54,10 @@ const App: FC = () => {
 					weather,
 					temp: main.temp,
 				};
-				const newWeatherDetail: any = [...weatherDetail, weatherData];
+				const newWeatherDetail: Array<WeatherProps> = [
+					...weatherDetail,
+					weatherData,
+				];
 				setWeatherDetail(newWeatherDetail);
 				setErrorMes(false);
 				localStorage.setItem(
@@ -72,7 +76,9 @@ const App: FC = () => {
 		if (data) {
 			const parseData = JSON.parse(data);
 			if (parseData.length > 1) {
-				const id = parseData.map((item: any) => item?.city?.id)?.join();
+				const id = parseData
+					.map((item: WeatherProps) => item?.city?.id)
+					?.join();
 				getWeather(id, true);
 			} else {
 				getWeather(parseData[0].city?.name, false);
@@ -82,7 +88,7 @@ const App: FC = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const onWeatherSubmit = async (city: string) => {
+	const onWeatherSubmit = (city: string) => {
 		getWeather(city, false);
 	};
 
