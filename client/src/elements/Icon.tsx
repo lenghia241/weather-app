@@ -1,12 +1,16 @@
-import React from 'react';
-import styled from '@emotion/styled';
+import React, { FC } from 'react';
+import styled from 'styled-components';
 
 const IconStyle = styled.img`
 	width: 7.875rem;
 	margin: 2rem auto;
 `;
 
-const Icon = (props: any) => {
+interface IconProps {
+	type: string;
+}
+
+const Icon: FC<IconProps> = (props) => {
 	return (
 		<IconStyle
 			src={require(`../assets/images/${props.type}.svg`)}

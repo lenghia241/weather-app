@@ -1,9 +1,9 @@
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 
 const Button = styled.button`
 	width: 107px;
-	background: ${(props: any) => props.theme.colors.primary};
-	color: ${(props: any) => props.theme.colors.white};
+	background: ${(props) => props.theme.colors.primary};
+	color: ${(props) => props.theme.colors.white};
 	text-transform: uppercase;
 	display: flex;
 	flex-direction: row;

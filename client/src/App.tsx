@@ -1,21 +1,19 @@
-/** @jsx jsx */ import { jsx } from '@emotion/core'; // DO NOT REMOVE
-
 import React, { useState, Suspense, FC } from 'react';
 import axios from 'axios';
 import Search from './components/Search';
 import Empty from './components/Empty';
 
-import { ThemeProvider } from 'emotion-theming';
+import { ThemeProvider } from 'styled-components';
 import theme from './themes/theme';
 import DefaultContext from './common/DefaultContext';
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 import Header from './elements/Header';
 
 const WeatherList = React.lazy(() => import('./components/WeatherList'));
 
 const Container = styled.div`
 	margin: 0 auto;
-	color: ${(props: any) => props.theme.colors.black};
+	color: ${(props) => props.theme.colors.black};
 `;
 
 const MainWrapper = styled.div`
@@ -31,7 +29,7 @@ const App: FC = () => {
 
 	const getWeather = async (data: string, multi: boolean) => {
 		let link: string;
-		let params: any;
+		let params;
 
 		if (multi) {
 			link = `http://localhost:8000/api/multiweather`;

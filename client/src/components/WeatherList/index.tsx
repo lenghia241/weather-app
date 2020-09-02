@@ -3,7 +3,7 @@ import dateformat from 'dateformat';
 import DefaultContext from '../../common/DefaultContext';
 import Card from '../../elements/Card';
 import Icon from '../../elements/Icon';
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 
 const ContentWrapper = styled.div`
 	display: flex;

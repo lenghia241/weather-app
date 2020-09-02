@@ -1,10 +1,10 @@
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 
 const Card = styled.div`
-	color: ${(props: any) => props.theme.colors.black};
-	background-color: ${(props: any) => props.theme.colors.white1};
-	font-size: ${(props: any) => props.theme.fontSize.m};
-	padding: ${(props: any) => props.theme.spacing.xl};
+	color: ${(props) => props.theme.colors.black};
+	background-color: ${(props) => props.theme.colors.white1};
+	font-size: ${(props) => props.theme.fontSize.m};
+	padding: ${(props) => props.theme.spacing.xl};
 	text-align: center;
 	border-radius: 20px;
 	max-width: 35rem;

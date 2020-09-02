@@ -1,10 +1,10 @@
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 
 const Header = styled.div`
-	color: ${(props: any) => props.theme.colors.white};
-	background-color: ${(props: any) => props.theme.colors.secondary};
-	font-size: ${(props: any) => props.theme.fontSize.m};
-	padding: ${(props: any) => props.theme.spacing.l};
+	color: ${(props) => props.theme.colors.white};
+	background-color: ${(props) => props.theme.colors.secondary};
+	font-size: ${(props) => props.theme.fontSize.m};
+	padding: ${(props) => props.theme.spacing.l};
 	text-align: center;
 	width: 100%;
 	height: 4rem;

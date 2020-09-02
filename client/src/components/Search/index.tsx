@@ -2,7 +2,7 @@ import React, { useState, useContext, FC } from 'react';
 import DefaultContext from '../../common/DefaultContext';
 import Input from '../../elements/Input';
 import Button from '../../elements/Button';
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 
 const InputWrapper = styled.div`
 	display: flex;
@@ -10,11 +10,11 @@ const InputWrapper = styled.div`
 
 const Label = styled.label`
 	text-transform: uppercase;
-	font-size: ${(props: any) => props.theme.fontSize.xs};
+	font-size: ${(props) => props.theme.fontSize.xs};
 `;
 
 const ErrorMes = styled.div`
-	color: ${(props: any) => props.theme.colors.error};
+	color: ${(props) => props.theme.colors.error};
 	margin-top: 2px;
 `;
 
