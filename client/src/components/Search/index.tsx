@@ -24,9 +24,10 @@ const Search: FC = () => {
 
 	const onSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		onWeatherSubmit(city);
+		city && onWeatherSubmit(city);
 		setCity('');
 	};
+
 	return (
 		<>
 			<form onSubmit={onSubmit}>

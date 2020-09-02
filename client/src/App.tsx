@@ -28,7 +28,7 @@ const App: FC = () => {
 
 	const key = process.env.REACT_APP_API_KEY;
 
-	const getWeather = async (data: string, multi: boolean) => {
+	const getWeather = (data: string, multi: boolean) => {
 		let link: string;
 		let params;
 
@@ -40,7 +40,7 @@ const App: FC = () => {
 			params = { city: data, key };
 		}
 
-		await axios
+		axios
 			.get(link, {
 				params,
 			})
@@ -92,6 +92,16 @@ const App: FC = () => {
 		getWeather(city, false);
 	};
 
+	const onDeleteLocation = (cityId: number) => {
+		const newWeatherDetail = weatherDetail.filter(
+			(item: WeatherProps) => item?.city?.id !== cityId
+		);
+		newWeatherDetail.length
+			? localStorage.setItem('city', JSON.stringify(newWeatherDetail))
+			: localStorage.removeItem('city');
+		setWeatherDetail(newWeatherDetail);
+	};
+
 	let cardContent = <Empty />;
 	if (weatherDetail?.length) {
 		cardContent = (
@@ -108,6 +118,7 @@ const App: FC = () => {
 					onWeatherSubmit,
 					weatherDetail,
 					errorMes,
+					onDeleteLocation,
 				}}
 			>
 				<Container>
