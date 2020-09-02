@@ -10,6 +10,9 @@ class Weather {
         app.get('/api/weather', (req, res) => {
             this.weather_controller.get_weather_ext_api(req, res);
         });
+        app.get('/api/multiweather', (req, res) => {
+            this.weather_controller.get_multi_weather_ext_api(req, res);
+        });
     }
 }
 exports.Weather = Weather;

@@ -9,7 +9,18 @@ class WeatherController {
         axios
             .get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${key}`)
             .then((response) => {
-            responsehandler_1.successResponse('Success!', response.data, res);
+            responsehandler_1.successResponse('Success', response.data, res);
+        })
+            .catch((error) => {
+            responsehandler_1.failureResponse(error.message, error, res);
+        });
+    }
+    get_multi_weather_ext_api(req, res) {
+        const { citiesId, key } = req.query;
+        axios
+            .get(`http://api.openweathermap.org/data/2.5/group?id=${citiesId}&units=metric&appid=${key}`)
+            .then((response) => {
+            responsehandler_1.successResponse('Success', response.data, res);
         })
             .catch((error) => {
             responsehandler_1.failureResponse(error.message, error, res);

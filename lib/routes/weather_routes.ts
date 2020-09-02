@@ -8,5 +8,8 @@ export class Weather {
 		app.get('/api/weather', (req: Request, res: Response) => {
 			this.weather_controller.get_weather_ext_api(req, res);
 		});
+		app.get('/api/multiweather', (req: Request, res: Response) => {
+			this.weather_controller.get_multi_weather_ext_api(req, res);
+		});
 	}
 }
