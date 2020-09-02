@@ -14,21 +14,20 @@ class App {
 		this.config();
 		this.weather_routes.route(this.app);
 
-		this.common_routes.route(this.app);
-
 		const path = require('path');
 		//Server static assets if in production
-		if (process.env.NODE_ENV === 'production') {
-			this.app.use(express.static('client/build'));
-			this.app.get(
-				'*',
-				(request: express.Request, response: express.Response) => {
-					response.sendFile(
-						path.resolve(__dirname, 'client', 'build', 'index.html')
-					);
-				}
-			);
-		}
+
+		this.app.use(express.static('client/build'));
+		this.app.get(
+			'*',
+			(request: express.Request, response: express.Response) => {
+				response.sendFile(
+					path.resolve(__dirname, 'client', 'build', 'index.html')
+				);
+			}
+		);
+
+		this.common_routes.route(this.app);
 	}
 
 	private config(): void {
@@ -36,6 +35,7 @@ class App {
 		this.app.use(bodyParser.json());
 		//support application/x-www-form-urlencoded post data
 		this.app.use(bodyParser.urlencoded({ extended: false }));
+		require('dotenv').config();
 	}
 }
 export default new App().app;

@@ -20,7 +20,7 @@ class Environment {
 		} else if (this.environment === Environments.qa_environment) {
 			return 8083;
 		} else {
-			return 8000;
+			return 9000;
 		}
 	}
 }

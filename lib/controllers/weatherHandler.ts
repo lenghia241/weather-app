@@ -1,8 +1,5 @@
 import { Request, Response } from 'express';
-import {
-	successResponse,
-	failureResponse,
-} from '../modules/common/responsehandler';
+import { successResponse, failureResponse } from './responsehandler';
 
 const axios = require('axios');
 

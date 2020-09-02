@@ -13,20 +13,20 @@ class App {
         this.app.use(cors({ origin: true, credentials: true }));
         this.config();
         this.weather_routes.route(this.app);
-        this.common_routes.route(this.app);
+        const path = require('path');
         //Server static assets if in production
-        if (process.env.NODE_ENV === 'production') {
-            app.use(express.static('client/build'));
-            app.get('*', (req, res) => {
-                res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-            });
-        }
+        this.app.use(express.static('client/build'));
+        this.app.get('*', (request, response) => {
+            response.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+        });
+        this.common_routes.route(this.app);
     }
     config() {
         // support application/json type post data
         this.app.use(bodyParser.json());
         //support application/x-www-form-urlencoded post data
         this.app.use(bodyParser.urlencoded({ extended: false }));
+        require('dotenv').config();
     }
 }
 exports.default = new App().app;

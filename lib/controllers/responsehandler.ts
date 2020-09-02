@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { response_status_codes } from './model';
+import { response_status_codes } from '../modules/common/model';
 
 export const successResponse = (
 	message: string,

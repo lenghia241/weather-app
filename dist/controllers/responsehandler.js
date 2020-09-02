@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.insufficientParameters = exports.failureResponse = exports.successResponse = void 0;
-const model_1 = require("./model");
+const model_1 = require("../modules/common/model");
 exports.successResponse = (message, response, res) => {
     res.status(model_1.response_status_codes.success).send({
         status: 'success',

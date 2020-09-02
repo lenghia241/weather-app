@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WeatherController = void 0;
-const responsehandler_1 = require("../modules/common/responsehandler");
+const responsehandler_1 = require("./responsehandler");
 const axios = require('axios');
 class WeatherController {
     get_weather_ext_api(req, res) {
