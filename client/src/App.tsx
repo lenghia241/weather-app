@@ -32,10 +32,10 @@ const App: FC = () => {
 		let params;
 
 		if (multi) {
-			link = `http://localhost:8000/api/multiweather`;
+			link = `/api/multiweather`;
 			params = { citiesId: data, key };
 		} else {
-			link = `http://localhost:8000/api/weather`;
+			link = `/api/weather`;
 			params = { city: data, key };
 		}
 
