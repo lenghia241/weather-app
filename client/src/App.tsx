@@ -25,10 +25,19 @@ const App: FC = () => {
 	const [weatherDetail, setWeatherDetail] = useState({});
 	const [error, setError] = useState({});
 
+	React.useEffect(() => {
+		const data = localStorage.getItem('city');
+		if (data) {
+			setWeatherDetail(JSON.parse(data));
+		}
+	}, []);
+
 	const onWeatherSubmit = async (city: string) => {
+		const key = process.env.REACT_APP_API_KEY;
+
 		axios
 			.get(`http://localhost:8000/api/weather`, {
-				params: { city, key: 'cb348323e75deb325f67a764534c84ab' },
+				params: { city, key },
 			})
 			.then((responseJson) => {
 				const { id, name, weather, main } = responseJson.data.response;
@@ -40,14 +49,15 @@ const App: FC = () => {
 					weather,
 					temp: main.temp,
 				};
-				console.log(weatherData);
+
 				setWeatherDetail(weatherData);
+				localStorage.setItem('city', JSON.stringify(weatherData));
 			})
 			.catch((error) => {
 				setError('Error when fetching');
 			});
 	};
-	console.log(theme);
+
 	return (
 		<ThemeProvider theme={theme}>
 			<DefaultContext.Provider
