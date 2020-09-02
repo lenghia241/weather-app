@@ -11,21 +11,37 @@ const ContentWrapper = styled.div`
 	align-items: flex-start;
 `;
 
+interface WeatherContent {
+	city: {
+		id: number;
+		name: string;
+	};
+	weather: any[];
+	temp: number;
+}
+
 const WeatherList: FC = () => {
 	const { weatherDetail } = useContext(DefaultContext);
-	const { city, temp, weather } = weatherDetail;
+
 	const date = new Date();
-	return (
-		<Card>
-			{weather && <Icon type={weather && weather[0]?.main} />}
-			<ContentWrapper>
-				<h3>{city?.name}</h3>
-				<p>{temp} °</p>
-				<div>{weather && weather[0]?.main}</div>
-				<h4>{dateformat(date, 'dddd, mmmm dd')}</h4>
-			</ContentWrapper>
-		</Card>
-	);
+
+	const renderWeather = weatherDetail.map((item: WeatherContent) => {
+		const { city, temp, weather } = item;
+
+		return (
+			<Card key={city?.id}>
+				{weather && <Icon type={weather && weather[0]?.main} />}
+				<ContentWrapper>
+					<h3>{city?.name}</h3>
+					<p>{temp} °</p>
+					<div>{weather && weather[0]?.main}</div>
+					<h4>{dateformat(date, 'dddd, mmmm dd')}</h4>
+				</ContentWrapper>
+			</Card>
+		);
+	});
+
+	return <>{renderWeather}</>;
 };
 
 export default WeatherList;

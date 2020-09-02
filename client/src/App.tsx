@@ -3,6 +3,8 @@
 import React, { useState, Suspense, FC } from 'react';
 import axios from 'axios';
 import Search from './components/Search';
+import Empty from './components/Empty';
+
 import { ThemeProvider } from 'emotion-theming';
 import theme from './themes/theme';
 import DefaultContext from './common/DefaultContext';
@@ -22,22 +24,26 @@ const MainWrapper = styled.div`
 `;
 
 const App: FC = () => {
-	const [weatherDetail, setWeatherDetail] = useState({});
-	const [error, setError] = useState({});
+	const [weatherDetail, setWeatherDetail] = useState([]);
+	const [errorMes, setErrorMes] = useState(false);
 
-	React.useEffect(() => {
-		const data = localStorage.getItem('city');
-		if (data) {
-			setWeatherDetail(JSON.parse(data));
+	const key = process.env.REACT_APP_API_KEY;
+
+	const getWeather = async (data: string, multi: boolean) => {
+		let link: string;
+		let params: any;
+
+		if (multi) {
+			link = `http://localhost:8000/api/multiweather`;
+			params = { citiesId: data, key };
+		} else {
+			link = `http://localhost:8000/api/weather`;
+			params = { city: data, key };
 		}
-	}, []);
 
-	const onWeatherSubmit = async (city: string) => {
-		const key = process.env.REACT_APP_API_KEY;
-
-		axios
-			.get(`http://localhost:8000/api/weather`, {
-				params: { city, key },
+		await axios
+			.get(link, {
+				params,
 			})
 			.then((responseJson) => {
 				const { id, name, weather, main } = responseJson.data.response;
@@ -49,14 +55,47 @@ const App: FC = () => {
 					weather,
 					temp: main.temp,
 				};
-
-				setWeatherDetail(weatherData);
-				localStorage.setItem('city', JSON.stringify(weatherData));
+				const newWeatherDetail: any = [...weatherDetail, weatherData];
+				setWeatherDetail(newWeatherDetail);
+				setErrorMes(false);
+				localStorage.setItem(
+					'city',
+					JSON.stringify([...weatherDetail, weatherData])
+				);
 			})
 			.catch((error) => {
-				setError('Error when fetching');
+				console.log(error);
+				setErrorMes(true);
 			});
 	};
+
+	React.useEffect(() => {
+		const data = localStorage.getItem('city');
+		if (data) {
+			const parseData = JSON.parse(data);
+			if (parseData.length > 1) {
+				const id = parseData.map((item: any) => item?.city?.id)?.join();
+				getWeather(id, true);
+			} else {
+				getWeather(parseData[0].city?.name, false);
+			}
+			setWeatherDetail(JSON.parse(data));
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	const onWeatherSubmit = async (city: string) => {
+		getWeather(city, false);
+	};
+
+	let cardContent = <Empty />;
+	if (weatherDetail?.length) {
+		cardContent = (
+			<Suspense fallback={<div>Loading....</div>}>
+				<WeatherList />
+			</Suspense>
+		);
+	}
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -64,16 +103,14 @@ const App: FC = () => {
 				value={{
 					onWeatherSubmit,
 					weatherDetail,
-					error,
+					errorMes,
 				}}
 			>
 				<Container>
 					<Header>Weather app</Header>
 					<MainWrapper>
 						<Search />
-						<Suspense fallback={<div>Loading....</div>}>
-							{weatherDetail && <WeatherList />}
-						</Suspense>
+						{cardContent}
 					</MainWrapper>
 				</Container>
 			</DefaultContext.Provider>

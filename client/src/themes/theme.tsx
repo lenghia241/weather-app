@@ -10,6 +10,7 @@ const theme = {
 		black: '#333333',
 		white: '#ffffff',
 		white1: '#E5E5E5',
+		error: '#a00000',
 	},
 	fontSize: {
 		xl: '2rem', // 32px,
