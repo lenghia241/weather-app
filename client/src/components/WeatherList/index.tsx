@@ -4,7 +4,7 @@ import DefaultContext from '../../common/DefaultContext';
 import Card from '../../elements/Card';
 import Icon from '../../elements/Icon';
 import styled from 'styled-components';
-import { WeatherContent } from '../../common/Interface';
+import { WeatherContent, WeatherProps } from '../../common/Interface';
 
 const ContentWrapper = styled.div`
 	display: flex;
@@ -22,9 +22,19 @@ const DeleteIcon = styled.img`
 `;
 
 const WeatherList: FC = () => {
-	const { weatherDetail, onDeleteLocation } = useContext(DefaultContext);
+	const { weatherDetail, setWeatherDetail } = useContext(DefaultContext);
 
 	const date = new Date();
+
+	const onDeleteLocation = (cityId: number) => {
+		const newWeatherDetail = weatherDetail.filter(
+			(item: WeatherProps) => item?.city?.id !== cityId
+		);
+		newWeatherDetail.length
+			? localStorage.setItem('city', JSON.stringify(newWeatherDetail))
+			: localStorage.removeItem('city');
+		setWeatherDetail(newWeatherDetail);
+	};
 
 	const renderWeather = weatherDetail.map(
 		(item: WeatherContent, index: number) => {

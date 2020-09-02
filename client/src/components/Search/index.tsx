@@ -20,11 +20,11 @@ const ErrorMes = styled.div`
 
 const Search: FC = () => {
 	const [city, setCity] = useState('');
-	const { onWeatherSubmit, errorMes } = useContext(DefaultContext);
+	const { getWeather, errorMes } = useContext(DefaultContext);
 
 	const onSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		city && onWeatherSubmit(city);
+		city && getWeather(city, false);
 		setCity('');
 	};
 

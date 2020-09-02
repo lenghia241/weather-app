@@ -88,20 +88,6 @@ const App: FC = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const onWeatherSubmit = (city: string) => {
-		getWeather(city, false);
-	};
-
-	const onDeleteLocation = (cityId: number) => {
-		const newWeatherDetail = weatherDetail.filter(
-			(item: WeatherProps) => item?.city?.id !== cityId
-		);
-		newWeatherDetail.length
-			? localStorage.setItem('city', JSON.stringify(newWeatherDetail))
-			: localStorage.removeItem('city');
-		setWeatherDetail(newWeatherDetail);
-	};
-
 	let cardContent = <Empty />;
 	if (weatherDetail?.length) {
 		cardContent = (
@@ -115,10 +101,10 @@ const App: FC = () => {
 		<ThemeProvider theme={theme}>
 			<DefaultContext.Provider
 				value={{
-					onWeatherSubmit,
 					weatherDetail,
 					errorMes,
-					onDeleteLocation,
+					setWeatherDetail,
+					getWeather,
 				}}
 			>
 				<Container>
