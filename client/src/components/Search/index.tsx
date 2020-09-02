@@ -35,6 +35,7 @@ const Search: FC = () => {
 				<InputWrapper>
 					<Input
 						id='cityInput'
+						placeholder='Enter a city (Eg: Espoo)'
 						type='text'
 						value={city}
 						onChange={(e): void => setCity(e.target.value)}
