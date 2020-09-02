@@ -15,7 +15,8 @@ If you see tsc error, run this command to install typescript globally:
 `npm npm install typescript -g`
 
 ### APi end point
-GET: `api/weather`: take `city` and `key`as params 
+GET: `api/weather`: take `city` and `key`as params
+
 GET: `api/multiweather`: take `citiesId` and `key`as params 
 
 <br/>
