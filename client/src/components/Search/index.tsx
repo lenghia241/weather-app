@@ -31,11 +31,11 @@ const Search: FC = () => {
 	return (
 		<>
 			<form onSubmit={onSubmit}>
-				<Label htmlFor='cityInput'>Search for a location</Label>
+				<Label htmlFor='cityInput'>Location</Label>
 				<InputWrapper>
 					<Input
 						id='cityInput'
-						placeholder='Enter a city (Eg: Espoo)'
+						placeholder='Enter a location (Eg: Espoo)'
 						type='text'
 						value={city}
 						onChange={(e): void => setCity(e.target.value)}

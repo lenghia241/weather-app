@@ -32,79 +32,67 @@ const App: FC = () => {
 		const data = localStorage.getItem('city');
 		if (data) {
 			const parseData = JSON.parse(data);
-			console.log('parseData', parseData, parseData.length > 1);
 			if (parseData.length > 1) {
 				const id = parseData
 					.map((item: WeatherProps) => item?.city?.id)
 					?.join();
-				getMultiWeather(id);
+				getWeather(id, true);
 			} else {
-				getWeather(parseData[0].city?.name);
+				getWeather(parseData[0].city?.name, false);
 			}
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const getWeather = (data: string) => {
-		axios
-			.get(`/api/weather`, {
-				params: { city: data, key },
-			})
-			.then((responseJson) => {
-				const { id, name, weather, main } = responseJson.data.response;
-				const weatherData = {
-					city: {
-						id,
-						name,
-					},
-					weather,
-					temp: main.temp,
-				};
-				const newWeatherDetail: Array<WeatherProps> = [
-					...weatherDetail,
-					weatherData,
-				];
-				setWeatherDetail(newWeatherDetail);
-				setErrorMes(false);
-				localStorage.setItem(
-					'city',
-					JSON.stringify([...weatherDetail, weatherData])
-				);
-			})
-			.catch((error) => {
-				console.log(error);
-				setErrorMes(true);
-			});
-	};
+	const getWeather = (data: string, multi: boolean) => {
+		let link: string;
+		let params;
+		if (multi) {
+			link = `/api/multiweather`;
+			params = { citiesId: data, key };
+		} else {
+			link = `/api/weather`;
+			params = { city: data, key };
+		}
 
-	const getMultiWeather = (data: string) => {
 		axios
-			.get(`/api/multiweather`, {
-				params: { citiesId: data, key },
+			.get(link, {
+				params,
 			})
 			.then((responseJson) => {
-				const weatherData = responseJson.data.response.list.map((item: any) => {
-					const { id, name, weather, main } = item;
-					return {
-						city: {
-							id,
-							name,
+				let weatherData;
+				if (multi) {
+					weatherData = responseJson.data.response.list.map((item: any) => {
+						const { id, name, weather, main } = item;
+						return {
+							city: {
+								id,
+								name,
+							},
+							weather,
+							temp: main.temp,
+						};
+					});
+				} else {
+					const { id, name, weather, main } = responseJson.data.response;
+					weatherData = [
+						{
+							city: {
+								id,
+								name,
+							},
+							weather,
+							temp: main.temp,
 						},
-						weather,
-						temp: main.temp,
-					};
-				});
-				console.log(weatherData);
+					];
+				}
 				const newWeatherDetail: Array<WeatherProps> = [
 					...weatherDetail,
 					...weatherData,
 				];
 				setWeatherDetail(newWeatherDetail);
 				setErrorMes(false);
-				localStorage.setItem(
-					'city',
-					JSON.stringify([...weatherDetail, ...weatherData])
-				);
+				localStorage.setItem('city', JSON.stringify(newWeatherDetail));
 			})
 			.catch((error) => {
 				console.log(error);

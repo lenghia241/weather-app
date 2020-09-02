@@ -7,6 +7,7 @@ class App {
 
 	private common_routes: CommonRoutes = new CommonRoutes();
 	private weather_routes: Weather = new Weather();
+
 	constructor() {
 		this.app = express();
 		const cors = require('cors');
@@ -14,9 +15,8 @@ class App {
 		this.config();
 		this.weather_routes.route(this.app);
 
+		//Serve static assets if in production
 		const path = require('path');
-		//Server static assets if in production
-
 		this.app.use(express.static('client/build'));
 		this.app.get(
 			'*',
@@ -27,6 +27,7 @@ class App {
 			}
 		);
 
+		//Catch invalid requests
 		this.common_routes.route(this.app);
 	}
 
