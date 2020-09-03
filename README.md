@@ -18,9 +18,11 @@ If you see tsc error, run this command to install typescript globally:
 ### APi end point
 
 - Get weather data for a city
+
 GET: `api/weather`: take `city` and `key`as params
 
 - Get weather data for multiple cities
+
 GET: `api/multiweather`: take `citiesId` and `key`as params 
 
 <br/>
