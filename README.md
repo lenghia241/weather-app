@@ -41,7 +41,7 @@ Open [http://localhost:3000](http://localhost:3000) to view in browser
 ### Usage:
 - Add a location using input and submit
 - Delete added location
-- Data is persist in local storage so you won't lose the locations you added next time you visit
+- Data is persisted in local storage so you won't lose the locations you added next time you visit
 
 
 
